@@ -1,0 +1,2 @@
+修改Tomcat的配置文件server.xml，添加URIEncoding="UTF-8"
+    <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8"/>

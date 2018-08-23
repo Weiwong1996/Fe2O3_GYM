@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.UsersMapper">
+	<resultMap id="BaseResultMap" type="entity.Users">
+		<id column="uid" property="uid" jdbcType="INTEGER" />
+		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="upwd" property="upwd" jdbcType="VARCHAR" />
+		<result column="uage" property="uage" jdbcType="INTEGER" />
+		<result column="uheight" property="uheight" jdbcType="INTEGER" />
+		<result column="uweight" property="uweight" jdbcType="INTEGER" />
+		<result column="utimelit" property="utimelit" jdbcType="VARCHAR" />
+		<result column="isplaned" property="isplaned" jdbcType="INTEGER" />
+		<result column="upicpath" property="upicpath" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		uid, uname, upwd, uage, uheight, uweight, utimelit, isplaned, upicpath
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from users
+		where uid = #{uid,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllUsers" resultMap="BaseResultMap">
+		select * from users
+	</select>
+	<select id="getUidByUname" resultMap="BaseResultMap"
+		parameterType="String">
+		select * from users where uname = #{uname}
+	</select>
+
+	<select id="doLogin" parameterType="entity.Users" resultType="int">
+		select count(uid) from users where uname = #{uname} and upwd = #{upwd}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from users
+		where uid = #{uid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="entity.Users">
+		insert into users (uname, upwd,
+		uage,uheight,uweight,utimelit)
+		values (#{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR},
+		#{uage,jdbcType=INTEGER}, #{uheight,jdbcType=INTEGER},
+		#{uweight,jdbcType=INTEGER}, #{utimelit,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="entity.Users">
+		insert into users
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="uname != null">
+				uname,
+			</if>
+			<if test="upwd != null">
+				upwd,
+			</if>
+			<if test="uage != null">
+				uage,
+			</if>
+			<if test="uheight != null">
+				uheight,
+			</if>
+			<if test="uweight != null">
+				uweight,
+			</if>
+			<if test="utimelit != null">
+				utimelit,
+			</if>
+			<if test="isplaned != null">
+				isplaned,
+			</if>
+			<if test="upicpath != null">
+				upicpath,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null">
+				#{uid,jdbcType=INTEGER},
+			</if>
+			<if test="uname != null">
+				#{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="upwd != null">
+				#{upwd,jdbcType=VARCHAR},
+			</if>
+			<if test="uage != null">
+				#{uage,jdbcType=INTEGER},
+			</if>
+			<if test="uheight != null">
+				#{uheight,jdbcType=INTEGER},
+			</if>
+			<if test="uweight != null">
+				#{uweight,jdbcType=INTEGER},
+			</if>
+			<if test="utimelit != null">
+				#{utimelit,jdbcType=VARCHAR},
+			</if>
+			<if test="isplaned != null">
+				#{isplaned,jdbcType=INTEGER},
+			</if>
+			<if test="upicpath != null">
+				#{upicpath,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="entity.Users">
+		update users
+		<set>
+			<if test="uname != null">
+				uname = #{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="upwd != null">
+				upwd = #{upwd,jdbcType=VARCHAR},
+			</if>
+			<if test="uage != null">
+				uage = #{uage,jdbcType=INTEGER},
+			</if>
+			<if test="uheight != null">
+				uheight = #{uheight,jdbcType=INTEGER},
+			</if>
+			<if test="uweight != null">
+				uweight = #{uweight,jdbcType=INTEGER},
+			</if>
+			<if test="utimelit != null">
+				utimelit = #{utimelit,jdbcType=VARCHAR},
+			</if>
+			<if test="isplaned != null">
+				isplaned = #{isplaned,jdbcType=INTEGER},
+			</if>
+			<if test="upicpath != null">
+				upicpath = #{upicpath,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where uid = #{uid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="entity.Users">
+		update users
+		set uname = #{uname,jdbcType=VARCHAR},
+		upwd = #{upwd,jdbcType=VARCHAR},
+		uage = #{uage,jdbcType=INTEGER},
+		uheight = #{uheight,jdbcType=INTEGER},
+		uweight = #{uweight,jdbcType=INTEGER},
+		utimelit = #{utimelit,jdbcType=VARCHAR},
+		isplaned = #{isplaned,jdbcType=INTEGER},
+		upicpath = #{upicpath,jdbcType=VARCHAR}
+		where uid = #{uid,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.SalespromotionMapper" >
+  <resultMap id="BaseResultMap" type="entity.Salespromotion" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="scontent" property="scontent" jdbcType="VARCHAR" />
+    <result column="sdiscount" property="sdiscount" jdbcType="VARCHAR" />
+    <result column="sprice" property="sprice" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, scontent, sdiscount, sprice
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salespromotion
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllSale" resultMap="BaseResultMap">
+  	select * from salespromotion
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salespromotion
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="entity.Salespromotion" >
+    insert into salespromotion (sid, scontent, sdiscount, 
+      sprice)
+    values (#{sid,jdbcType=INTEGER}, #{scontent,jdbcType=VARCHAR}, #{sdiscount,jdbcType=VARCHAR}, 
+      #{sprice,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="entity.Salespromotion" >
+    insert into salespromotion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="scontent != null" >
+        scontent,
+      </if>
+      <if test="sdiscount != null" >
+        sdiscount,
+      </if>
+      <if test="sprice != null" >
+        sprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="scontent != null" >
+        #{scontent,jdbcType=VARCHAR},
+      </if>
+      <if test="sdiscount != null" >
+        #{sdiscount,jdbcType=VARCHAR},
+      </if>
+      <if test="sprice != null" >
+        #{sprice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="entity.Salespromotion" >
+    update salespromotion
+    <set >
+      <if test="scontent != null" >
+        scontent = #{scontent,jdbcType=VARCHAR},
+      </if>
+      <if test="sdiscount != null" >
+        sdiscount = #{sdiscount,jdbcType=VARCHAR},
+      </if>
+      <if test="sprice != null" >
+        sprice = #{sprice,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="entity.Salespromotion" >
+    update salespromotion
+    set scontent = #{scontent,jdbcType=VARCHAR},
+      sdiscount = #{sdiscount,jdbcType=VARCHAR},
+      sprice = #{sprice,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.CoachMapper" >
+
+	<!-- 设置一个自定义返回类型BaseResultMap -->
+  <resultMap id="BaseResultMap" type="Coach" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="ccourse" property="ccourse" jdbcType="VARCHAR" />
+    <result column="cintroduce" property="cintroduce" jdbcType="VARCHAR" />
+    <result column="cworkyear" property="cworkyear" jdbcType="VARCHAR" />
+    <result column="clevel" property="clevel" jdbcType="VARCHAR" />
+    <result column="cprice" property="cprice" jdbcType="INTEGER" />
+    <result column="cpicpath" property="cpicpath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    cid, cname, ccourse, cintroduce, cworkyear, clevel, cprice, cpicpath
+  </sql>
+  
+  <!-- 按照教练名查询 返回结果为BaseResultMap -->
+  <select id="getPriceByName" resultMap="BaseResultMap" parameterType="String" >
+    select * from coach where cname = #{cname}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from coach
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllCoach" resultMap="BaseResultMap">
+  	select * from coach
+  </select>
+  <!-- 根据某教练编号cid删除相应的教练 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from coach
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Coach" >
+    insert into coach (cid, cname, ccourse, 
+      cintroduce, cworkyear, clevel, 
+      cprice, cpicpath)
+    values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{ccourse,jdbcType=VARCHAR}, 
+      #{cintroduce,jdbcType=VARCHAR}, #{cworkyear,jdbcType=VARCHAR}, #{clevel,jdbcType=VARCHAR}, 
+      #{cprice,jdbcType=INTEGER}, #{cpicpath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Coach" >
+    insert into coach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="ccourse != null" >
+        ccourse,
+      </if>
+      <if test="cintroduce != null" >
+        cintroduce,
+      </if>
+      <if test="cworkyear != null" >
+        cworkyear,
+      </if>
+      <if test="clevel != null" >
+        clevel,
+      </if>
+      <if test="cprice != null" >
+        cprice,
+      </if>
+      <if test="cpicpath != null" >
+        cpicpath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="ccourse != null" >
+        #{ccourse,jdbcType=VARCHAR},
+      </if>
+      <if test="cintroduce != null" >
+        #{cintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="cworkyear != null" >
+        #{cworkyear,jdbcType=VARCHAR},
+      </if>
+      <if test="clevel != null" >
+        #{clevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cprice != null" >
+        #{cprice,jdbcType=INTEGER},
+      </if>
+      <if test="cpicpath != null" >
+        #{cpicpath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Coach" >
+    update coach
+    <set >
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="ccourse != null" >
+        ccourse = #{ccourse,jdbcType=VARCHAR},
+      </if>
+      <if test="cintroduce != null" >
+        cintroduce = #{cintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="cworkyear != null" >
+        cworkyear = #{cworkyear,jdbcType=VARCHAR},
+      </if>
+      <if test="clevel != null" >
+        clevel = #{clevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cprice != null" >
+        cprice = #{cprice,jdbcType=INTEGER},
+      </if>
+      <if test="cpicpath != null" >
+        cpicpath = #{cpicpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Coach" >
+    update coach
+    set cname = #{cname,jdbcType=VARCHAR},
+      ccourse = #{ccourse,jdbcType=VARCHAR},
+      cintroduce = #{cintroduce,jdbcType=VARCHAR},
+      cworkyear = #{cworkyear,jdbcType=VARCHAR},
+      clevel = #{clevel,jdbcType=VARCHAR},
+      cprice = #{cprice,jdbcType=INTEGER},
+      cpicpath = #{cpicpath,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

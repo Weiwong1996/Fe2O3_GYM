@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="entity.Course" >
+    <id column="couid" property="couid" jdbcType="INTEGER" />
+    <result column="couname" property="couname" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="couintroduce" property="couintroduce" jdbcType="VARCHAR" />
+    <result column="coutime" property="coutime" jdbcType="VARCHAR" />
+    <result column="coudaytime" property="coudaytime" jdbcType="VARCHAR" />
+    <result column="coupicpath" property="coupicpath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    couid, couname, cid, couintroduce, coutime, coudaytime ,coupicpath
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where couid = #{couid,jdbcType=INTEGER}
+  </select>
+  <select id="selectCourseList"  resultType="entity.CourseAndCoach" parameterType="entity.Page">
+        SELECT * FROM course LEFT JOIN coach ON course.cid=coach.cid limit #{startRow},#{pageSize}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    	select * from course
+    </select>
+    <select id="courseTotal"  resultType="int">
+        select count(couid) from course 
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where couid = #{couid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="entity.Course" >
+    insert into course (couid, couname, cid, 
+      couintroduce, coutime, coudaytime ,coupicpath
+      )
+    values (#{couid,jdbcType=INTEGER}, #{couname,jdbcType=VARCHAR}, #{cid,jdbcType=INTEGER}, 
+      #{couintroduce,jdbcType=VARCHAR}, #{coutime,jdbcType=VARCHAR}, #{coudaytime,jdbcType=VARCHAR},
+      #{coupicpath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="entity.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="couid != null" >
+        couid,
+      </if>
+      <if test="couname != null" >
+        couname,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="couintroduce != null" >
+        couintroduce,
+      </if>
+      <if test="coutime != null" >
+        coutime,
+      </if>
+      <if test="coudaytime != null" >
+        coudaytime,
+      </if>
+       <if test="coupicpath != null" >
+        coupicpath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="couid != null" >
+        #{couid,jdbcType=INTEGER},
+      </if>
+      <if test="couname != null" >
+        #{couname,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="couintroduce != null" >
+        #{couintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="coutime != null" >
+        #{coutime,jdbcType=VARCHAR},
+      </if>
+      <if test="coudaytime != null" >
+        #{coudaytime,jdbcType=VARCHAR},
+      </if>
+      <if test="coupicpath != null" >
+        #{coupicpath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="entity.Course" >
+    update course
+    <set >
+      <if test="couname != null" >
+        couname = #{couname,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="couintroduce != null" >
+        couintroduce = #{couintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="coutime != null" >
+        coutime = #{coutime,jdbcType=VARCHAR},
+      </if>
+      <if test="coudaytime != null" >
+        coudaytime = #{coudaytime,jdbcType=VARCHAR},
+      </if>
+      <if test="coupicpath != null" >
+        coupicpath = #{coupicpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where couid = #{couid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="entity.Course" >
+    update course
+    set couname = #{couname,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      couintroduce = #{couintroduce,jdbcType=VARCHAR},
+      coutime = #{coutime,jdbcType=VARCHAR},
+      coudaytime = #{coudaytime,jdbcType=VARCHAR},
+      coupicpath = #{coupicpath,jdbcType=VARCHAR}
+    where couid = #{couid,jdbcType=INTEGER}
+  </update>
+</mapper>
